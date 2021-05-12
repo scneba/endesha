@@ -1,0 +1,21 @@
+exports.invalidUUID = "INVALID_UUID";
+exports.internalServerErr = "SERVER_ERROR";
+exports.idRequired = "ID_REQUIRED";
+exports.idNotFound = "ID_NOT_FOUND";
+exports.userNotExists = "USER_NOT-EXIST";
+exports.passwordError = "PASSWORD_ERROR";
+exports.roleNameExist = "ROLE_NAME_EXIST";
+exports.permissionNotFound = "PERMISSION_NOT_FOUND";
+exports.oneRoleRequired = "ONE_ROLE_REQUIRED";
+exports.emailExists = "EMAIL_EXISTS";
+exports.userNameExists = "USER_NAME_EXISTS";
+exports.roleNotExist = "ROLE_NOT_EXIST";
+
+exports.catNameRequired = "CATEGORY_NAME_REQUIRED";
+exports.catExists = "CATEGORY_ALREADY_EXIST";
+exports.answerExists = "ANSWER_ALREADY_EXIST";
+exports.answerRequired = "ANSWER_REQUIRED";
+exports.userAnswerNotFound = "USER_ANSWER_NOT_FOUND";
+exports.questionExists = "QUESTION_ALREADY_EXISTS";
+exports.questionRequired = "QUESTION_IS_REQUIRED";
+exports.categoryRequired = "CATEGORY_REQUIRED";
