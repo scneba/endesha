@@ -7,7 +7,8 @@ const {
   Sequelize,
   Op,
 } = require("../models");
-//Check if category exists
+
+//Categories
 exports.categoryExists = async function (id, name) {
   //validate request
   try {
@@ -64,6 +65,38 @@ exports.updateCategory = async function (id, name, description) {
   }
 };
 
+exports.deleteCategory = async function (id) {
+  try {
+    await Category.destroy({ where: { id } });
+    return id;
+  } catch (e) {
+    throw e;
+  }
+};
+
+exports.getCategories = async function (id, name) {
+  var cats;
+  try {
+    if (id && id.length > 0) {
+      cats = Category.findByPk(id);
+    } else if (name && name.length > 0) {
+      name = "%" + name + "%";
+      cats = await Category.findAll({
+        where: { name: { [Op.like]: name } },
+        order: [["createdAt", "DESC"]],
+      });
+    } else {
+      cats = await Category.findAll({
+        order: [["createdAt", "DESC"]],
+        logging: console.log,
+      });
+    }
+  } catch (error) {
+    throw error;
+  }
+  return cats;
+};
+
 exports.answerExists = async function (id, description) {
   //validate request
   try {
@@ -111,24 +144,6 @@ exports.updateAnswer = async function (id, description, answer) {
   }
 };
 
-const getAnswer = async function (id, description) {
-  //validate request
-  try {
-    let ans;
-    //find by id if id field is supplied
-    if (id && id.length > 0) {
-      ans = await Answer.findByPk(id);
-    } else {
-      ans = await Answer.findOne({
-        where: { short_description: description },
-      });
-    }
-    return ans;
-  } catch (e) {
-    throw e;
-  }
-};
-
 //add answer with description and answer
 exports.addAnswer = async function (description, answer) {
   try {
@@ -140,6 +155,34 @@ exports.addAnswer = async function (description, answer) {
   } catch (e) {
     throw e;
   }
+};
+
+exports.getAnswers = async function (id, description, answer) {
+  var ans;
+  try {
+    if (id && id.length > 0) {
+      ans = Answer.findByPk(id);
+    } else if (description && description.length > 0) {
+      description = "%" + description + "%";
+      ans = await Answer.findAll({
+        where: { short_description: { [Op.like]: description } },
+        order: [["createdAt", "DESC"]],
+      });
+    } else if (answer && answer.length > 0) {
+      answer = "%" + answer + "%";
+      ans = await Answer.findAll({
+        where: { answer: { [Op.like]: answer } },
+        order: [["createdAt", "DESC"]],
+      });
+    } else {
+      ans = await Answer.findAll({
+        order: [["createdAt", "DESC"]],
+      });
+    }
+  } catch (error) {
+    throw error;
+  }
+  return ans;
 };
 
 exports.userAnswerExists = async function (id, user_id, question_id) {
@@ -158,6 +201,15 @@ exports.userAnswerExists = async function (id, user_id, question_id) {
     } else {
       return true;
     }
+  } catch (e) {
+    throw e;
+  }
+};
+
+exports.deleteAnswer = async function (id) {
+  try {
+    await Answer.destroy({ where: { id } });
+    return id;
   } catch (e) {
     throw e;
   }
@@ -195,6 +247,45 @@ exports.updateUserAnswer = async function (id, user_id, question_id, answer) {
       });
     }
     return ans;
+  } catch (e) {
+    throw e;
+  }
+};
+
+exports.getUserAnswers = async function (id, user_id, question_id) {
+  var ans;
+  try {
+    if (id && id.length > 0) {
+      ans = UserAnswer.findByPk(id);
+    } else if (
+      user_id &&
+      user_id.length > 0 &&
+      question_id &&
+      question_id.length > 0
+    ) {
+      ans = await UserAnswer.findOne({
+        where: { user_id, question_id },
+      });
+    } else if (user_id && user_id.length > 0) {
+      ans = await UserAnswer.findAll({
+        where: { user_id },
+        order: [["createdAt", "DESC"]],
+      });
+    } else {
+      ans = await UserAnswer.findAll({
+        order: [["createdAt", "DESC"]],
+      });
+    }
+  } catch (error) {
+    throw error;
+  }
+  return ans;
+};
+
+exports.deleteUserAnswer = async function (id) {
+  try {
+    await UserAnswer.destroy({ where: { id } });
+    return id;
   } catch (e) {
     throw e;
   }
@@ -262,4 +353,68 @@ exports.updateQuestion = async function (id, question, category_id, answer_id) {
   } catch (e) {
     throw e;
   }
+};
+
+exports.deleteQuestion = async function (id) {
+  try {
+    await Question.destroy({ where: { id } });
+    return id;
+  } catch (e) {
+    throw e;
+  }
+};
+exports.getQuestions = async function (id, category_id, answer_id, question) {
+  var quests;
+  try {
+    if (id && id.length > 0) {
+      quests = Question.findByPk(id, {
+        include: [
+          {
+            model: Answer,
+            as: "correct_answer",
+            attributes: ["id", "short_description", "answer"],
+          },
+        ],
+      });
+    } else if (category_id && category_id.length > 0) {
+      quests = await Question.findAll({
+        where: { category_id },
+        order: [["createdAt", "DESC"]],
+        include: [
+          {
+            model: Answer,
+            as: "correct_answer",
+            attributes: ["id", "short_description", "answer"],
+          },
+        ],
+      });
+    } else if (question && question.length > 0) {
+      question = "%" + question + "%";
+      quests = await Question.findAll({
+        where: { question: { [Op.like]: question } },
+        order: [["createdAt", "DESC"]],
+        include: [
+          {
+            model: Answer,
+            as: "correct_answer",
+            attributes: ["id", "short_description", "answer"],
+          },
+        ],
+      });
+    } else {
+      quests = await Question.findAll({
+        order: [["createdAt", "DESC"]],
+        include: [
+          {
+            model: Answer,
+            as: "correct_answer",
+            attributes: ["id", "short_description", "answer"],
+          },
+        ],
+      });
+    }
+  } catch (error) {
+    throw error;
+  }
+  return quests;
 };

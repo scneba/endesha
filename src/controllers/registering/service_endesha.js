@@ -128,8 +128,9 @@ exports.addUserAnswer = async function (req, res) {
     }
     let found = repo.userAnswerExists("", user_id, question_id);
     let resp;
+    //I'd prefer to get the id and update by it
     if (found) {
-      resp = await repo.updateUserAnswer(user_id, question_id, answer);
+      resp = await repo.updateUserAnswer("",user_id, question_id, answer);
     } else {
       resp = await repo.addUserAnswer(user_id, question_id, answer);
     }

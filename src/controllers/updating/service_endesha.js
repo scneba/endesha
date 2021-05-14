@@ -66,11 +66,7 @@ async function validateCategory(id, name, description) {
 const validateID = function (id, data) {
   let errs = [];
   if (id == null || id.length == 0) {
-    errs = helpers.buildError(
-      errors.idRequired,
-      "Category id is required",
-      data,
-    );
+    errs = helpers.buildError(errors.idRequired, "ID is required", data);
     return errs;
   }
 

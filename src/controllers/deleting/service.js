@@ -14,7 +14,7 @@ exports.deleteUser = async function (req, res) {
   let data = { id };
   let valid = uuid.validate(id);
   if (!valid) {
-    let errs = helpers.buildError(errors.invalidUUID, "Invalid UUID", data);
+    let errs = helpers.buildError("INVALID_UUID", "Invalid UUID", data);
     helpers.writeBadRequest(res, errs);
     return;
   }

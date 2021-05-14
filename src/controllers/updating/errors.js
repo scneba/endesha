@@ -19,3 +19,5 @@ exports.userAnswerNotFound = "USER_ANSWER_NOT_FOUND";
 exports.questionExists = "QUESTION_ALREADY_EXISTS";
 exports.questionRequired = "QUESTION_IS_REQUIRED";
 exports.categoryRequired = "CATEGORY_REQUIRED";
+exports.categoryNotFound = "CATEGORY_NOT_FOUND";
+exports.answerNotFound = "ANSWER_NOT_FOUND";

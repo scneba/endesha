@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "85f94540-e903-469a-8fdc-4987f7ab993d",
-		"name": "role_base",
+		"_postman_id": "b6c35bcf-f5a1-4192-91d3-9801d2906e09",
+		"name": "endesha_back",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -62,8 +62,8 @@
 							"\r",
 							"pm.test(\"Right body returned\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData.data).to.be.a(\"string\");\r",
-							"    pm.expect(jsonData.data).to.have.length.greaterThan(5);\r",
+							"    pm.expect(jsonData.data.id).to.be.a(\"string\");\r",
+							"    pm.expect(jsonData.data.id).to.have.length.greaterThan(5);\r",
 							"    pm.expect(jsonData.errors).to.have.length(0);\r",
 							"});"
 						],
@@ -1011,6 +1011,788 @@
 					"path": [
 						"auth",
 						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add category",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"201 status test\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Right body returned\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data.id).to.be.a(\"string\");\r",
+							"    pm.expect(jsonData.data.id).to.have.length.greaterThan(5);\r",
+							"    pm.expect(jsonData.errors).to.have.length(0);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"{{$randomPassword}}\",\r\n    \"description\":\"Random Category generated from Postman\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/endesha/categories",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"endesha",
+						"categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Categories",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"201 status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Right body returned\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data).to.have.length.greaterThan(1);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/endesha/categories?name=2LDTg",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"endesha",
+						"categories"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "2LDTg"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update category",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"201 status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Right body returned\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data.id).to.be.a(\"string\");\r",
+							"    pm.expect(jsonData.data.id).to.have.length.greaterThan(5);\r",
+							"    pm.expect(jsonData.errors).to.have.length(0);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n     \"id\":\"7a014c30-ceeb-4291-907b-b78816e97739\",\r\n    \"name\":\"{{$randomPassword}}duplicate\",\r\n    \"description\":\"Random Category generated from Postman duplicate\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/endesha/categories",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"endesha",
+						"categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Category",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"201 status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Right body returned\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data.id).to.be.a(\"string\");\r",
+							"    pm.expect(jsonData.data.id).to.have.length.greaterThan(5);\r",
+							"    pm.expect(jsonData.errors).to.have.length(0);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n     \"id\":\"9c9a357e-5182-46da-b45f-a100efe8aeee\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/endesha/categories",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"endesha",
+						"categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add user answer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"201 status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Right body returned\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data.id).to.be.a(\"string\");\r",
+							"    pm.expect(jsonData.data.id).to.have.length.greaterThan(5);\r",
+							"    pm.expect(jsonData.errors).to.have.length(0);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":\"09615861-1659-47db-89fa-b81732a6577a\",\r\n    \"answer\":\"New answer new.\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/endesha/useranswers",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"endesha",
+						"useranswers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update user answer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"201 status test\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Right body returned\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data.id).to.be.a(\"string\");\r",
+							"    pm.expect(jsonData.data.id).to.have.length.greaterThan(5);\r",
+							"    pm.expect(jsonData.errors).to.have.length(0);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_id\":\"adbc\",\r\n    \"question_id\":\"cde\",\r\n    \"answer\":\"Must turn left ahead,  example joining a one way traffic road.\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/endesha/useranswers",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"endesha",
+						"useranswers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User Answer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"201 status test\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Right body returned\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data.id).to.be.a(\"string\");\r",
+							"    pm.expect(jsonData.data.id).to.have.length.greaterThan(5);\r",
+							"    pm.expect(jsonData.errors).to.have.length(0);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":\"09615861-1659-47db-89fa-b81732a6577a\"\r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/endesha/useranswers",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"endesha",
+						"useranswers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User answers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"201 status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Right body returned\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data).to.have.length.greaterThan(1);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_id\":\"adbc\",\r\n    \"question_id\":\"cde\",\r\n    \"answer\":\"Must turn left ahead,  example joining a one way traffic road.\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/endesha/useranswers?id=09615861-1659-47db-89fa-b81732a6577a",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"endesha",
+						"useranswers"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "09615861-1659-47db-89fa-b81732a6577a"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add Answer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"201 status test\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Right body returned\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data.id).to.be.a(\"string\");\r",
+							"    pm.expect(jsonData.data.id).to.have.length.greaterThan(5);\r",
+							"    pm.expect(jsonData.errors).to.have.length(0);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"short_description\":\"compulsory turn Left Sign {{$randomPassword}}\",\r\n    \"answer\":\"Must turn left ahead,  example joining a one way traffic road.\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/endesha/answers",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"endesha",
+						"answers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update answer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"201 status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Right body returned\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data.id).to.be.a(\"string\");\r",
+							"    pm.expect(jsonData.data.id).to.have.length.greaterThan(5);\r",
+							"    pm.expect(jsonData.errors).to.have.length(0);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"c88b1023-7cc0-4bb7-993b-0275f921a9c4\",\r\n    \"short_description\":\"compulsory turn Left Sign new{{$randomPassword}}\",\r\n    \"answer\":\"Must turn left ahead,  example joining a one way traffic road new.\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/endesha/answers",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"endesha",
+						"answers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Answer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"201 status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Right body returned\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data.id).to.be.a(\"string\");\r",
+							"    pm.expect(jsonData.data.id).to.have.length.greaterThan(5);\r",
+							"    pm.expect(jsonData.errors).to.have.length(0);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"da639be9-01ea-4413-ab72-04c3d03c3b79\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/endesha/answers",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"endesha",
+						"answers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Answer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"201 status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Right body returned\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data).to.have.length.greaterThan(1);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"c88b1023-7cc0-4bb7-993b-0275f921a9c4\",\r\n    \"short_description\":\"compulsory turn Left Sign new{{$randomPassword}}\",\r\n    \"answer\":\"Must turn left ahead,  example joining a one way traffic road new.\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/endesha/answers?id=55cd2cf9-1058-4686-9599-fe0ca8b4f6f6",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"endesha",
+						"answers"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "55cd2cf9-1058-4686-9599-fe0ca8b4f6f6"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update question",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"201 status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Right body returned\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data.id).to.be.a(\"string\");\r",
+							"    pm.expect(jsonData.data.id).to.have.length.greaterThan(5);\r",
+							"    pm.expect(jsonData.errors).to.have.length(0);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":\"07715861-1659-47db-89fa-b81732a6575a\",\r\n    \"category_id\":\"06615861-1659-47db-89fa-b81732a6576a\",\r\n    \"answer_id\":\"07615861-1659-47db-89fa-b81732a6575a\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/endesha/questions",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"endesha",
+						"questions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update question Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"201 status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Right body returned\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data.id).to.be.a(\"string\");\r",
+							"    pm.expect(jsonData.data.id).to.have.length.greaterThan(5);\r",
+							"    pm.expect(jsonData.errors).to.have.length(0);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":\"3eb4ed5a-8e2a-44e5-b40f-a7f43d73dc04\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/endesha/questions",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"endesha",
+						"questions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Question",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"201 status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Right body returned\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data.id).to.be.a(\"string\");\r",
+							"    pm.expect(jsonData.data.id).to.have.length.greaterThan(5);\r",
+							"    pm.expect(jsonData.errors).to.have.length(0);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":\"07715861-1659-47db-89fa-b81732a6575a\",\r\n    \"category_id\":\"06615861-1659-47db-89fa-b81732a6576a\",\r\n    \"answer_id\":\"07615861-1659-47db-89fa-b81732a6575a\",\r\n    \"question\":\"Where does the law not allow you to stop in Kenya\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/endesha/questions",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"endesha",
+						"questions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Questions",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"201 status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Right body returned\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data.id).to.be.a(\"string\");\r",
+							"    pm.expect(jsonData.data.id).to.have.length.greaterThan(5);\r",
+							"    pm.expect(jsonData.errors).to.have.length(0);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/endesha/questions?question=law",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"endesha",
+						"questions"
+					],
+					"query": [
+						{
+							"key": "question",
+							"value": "law"
+						}
 					]
 				}
 			},
