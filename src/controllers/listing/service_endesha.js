@@ -15,6 +15,10 @@ exports.getCategories = async function (req, res) {
     }
 
     let cats = await repo.getCategories(id, name);
+    if (cats == null) {
+      writeRecordNotFound(res, data);
+      return;
+    }
     helpers.writeSuccess(res, cats);
     return;
   } catch (error) {
@@ -40,6 +44,10 @@ exports.getAnswers = async function (req, res) {
     }
 
     let ans = await repo.getAnswers(id, description, answer);
+    if (ans == null) {
+      writeRecordNotFound(res, data);
+      return;
+    }
     helpers.writeSuccess(res, ans);
     return;
   } catch (error) {
@@ -76,6 +84,10 @@ exports.getUserAnswers = async function (req, res) {
     }
 
     let ans = await repo.getUserAnswers(id, user_id, question_id);
+    if (ans == null) {
+      writeRecordNotFound(res, data);
+      return;
+    }
     helpers.writeSuccess(res, ans);
     return;
   } catch (error) {
@@ -112,8 +124,12 @@ exports.getQuestions = async function (req, res) {
       return;
     }
 
-    let ans = await repo.getQuestions(id, category_id, answer_id, question);
-    helpers.writeSuccess(res, ans);
+    let quest = await repo.getQuestions(id, category_id, answer_id, question);
+    if (quest == null) {
+      writeRecordNotFound(res, data);
+      return;
+    }
+    helpers.writeSuccess(res, quest);
     return;
   } catch (error) {
     let err = helpers.buildError(
@@ -140,4 +156,9 @@ const validateID = function (id, data) {
   }
 
   return errs;
+};
+
+const writeRecordNotFound = function (res, data) {
+  let err = helpers.buildError(errors.notFound, "Record not found", data);
+  helpers.writeBadRequest(res, err);
 };
