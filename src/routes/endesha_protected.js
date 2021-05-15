@@ -1,9 +1,36 @@
 var express = require("express");
 var router = express.Router();
+var multer = require("multer");
+var path = require("path");
+
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "storage/images/");
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + path.extname(file.originalname)); //Appending extension
+  },
+  limits: {
+    fileSize: 10000000,
+  },
+});
+
+var upload = multer({ storage: storage });
+
 var registeringController = require("../controllers/registering/service_endesha");
 var updateController = require("../controllers/updating/service_endesha");
 var listController = require("../controllers/listing/service_endesha");
 var deleteController = require("../controllers/deleting/service_endesha");
+
+router.post(
+  "/images",
+  upload.single("image"),
+  registeringController.uploadImage,
+);
+
+router.patch("/images", upload.single("image"), updateController.updateImage);
+router.get("/images", listController.getImage);
+router.delete("/images", deleteController.deleteImage);
 
 router.post("/categories", registeringController.addCategory);
 router.patch("/categories", updateController.updateCategory);

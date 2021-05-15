@@ -2,7 +2,62 @@ const repo = require("../../data/endesha_repo");
 const helpers = require("../../utils/helpers");
 const errors = require("./errors");
 const uuid = require("uuid");
+const fs = require("fs");
+const path = require("path");
 
+exports.getImage = async function (req, res) {
+  let name = req.query.name;
+  let id = req.query.id;
+  let data = { id, name };
+  let errs = validateID(id, data);
+  if (errs.length > 0) {
+    helpers.writeBadRequest(res, errs);
+    return;
+  }
+  let image = await repo.getImages(id, name);
+  if (image == null) {
+    helpers.writeBadRequest(res, errs);
+    return;
+  } else if (Array.isArray(image)) {
+    helpers.writeSuccess(res, image);
+  } else {
+    //single image with path, render the image
+    let fullPath = path.join(__basedir, "storage/images/" + image.path);
+    // Checking if the path exists
+    console.log(fullPath);
+    fs.exists(fullPath, function (exists) {
+      if (!exists) {
+        errs = helpers.buildError(errors.notFound, "Image not found", data);
+        helpers.writeBadRequest(res, errs);
+        return;
+      }
+
+      // Extracting file extension
+      var ext = path.extname(image.path);
+
+      // Setting default Content-Type
+      var contentType = "text/plain";
+
+      // Checking if the extention of
+      // image is '.png'
+      if (ext === ".png") {
+        contentType = "image/png";
+      }
+
+      // Setting the headers
+      res.writeHead(200, {
+        "Content-Type": contentType,
+      });
+
+      // Reading the file
+      fs.readFile(fullPath, function (err, content) {
+        // Serving the image
+        res.end(content);
+      });
+    });
+  }
+  return;
+};
 exports.getCategories = async function (req, res) {
   try {
     let id = req.query.id;

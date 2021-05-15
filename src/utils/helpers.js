@@ -69,24 +69,3 @@ exports.mockExpectedResponse = (data, errors) => ({
   data,
   errors,
 });
-
-//validate a UUID
-exports.validateID = function (id, data) {
-  let errs = [];
-  if (id == null || id.length == 0) {
-    errs = helpers.buildError(errors.idRequired, "ID is required", data);
-    return errs;
-  }
-
-  let valid = uuid.validate(id);
-  if (!valid) {
-    errs = helpers.addError(
-      errs,
-      errors.invalidUUID,
-      "Invalid UUID " + id,
-      data,
-    );
-  }
-
-  return errs;
-};

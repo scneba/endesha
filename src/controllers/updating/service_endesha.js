@@ -4,6 +4,56 @@ const uuid = require("uuid");
 const helpers = require("../../utils/helpers");
 const errors = require("./errors");
 
+exports.updateImage = async function (req, res) {
+  let id = req.body.id;
+  let name = req.body.name;
+  let file = req.file;
+  var data = { id, name };
+  try {
+    let errs = await validateFile(file, id, name);
+    if (errs.length > 0) {
+      helpers.writeBadRequest(res, errs);
+      return;
+    }
+    let image = await repo.updateFile(id, name, file.filename);
+    helpers.writeSuccess(res, image);
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+const validateFile = async function (file, id, name) {
+  let data = { id, name };
+  let errs = [];
+  if (file == null) {
+    errs = helpers.buildError(
+      errors.fileRequired,
+      "An image is required",
+      data,
+    );
+  }
+  if ((id == null || id.length == 0) && (name == null || name.length == 0)) {
+    errs = helpers.addError(
+      errs,
+      errors.fileNameorIdRequired,
+      "Name or ID required for update",
+      data,
+    );
+  }
+  if (errs.length > 0) {
+    return errs;
+  }
+
+  try {
+    let found = await repo.fileExists(id, name);
+    if (!found) {
+      errs = helpers.buildError(errors.fileNotFound, "File not found", data);
+    }
+  } catch (e) {
+    throw e;
+  }
+  return errs;
+};
 exports.updateCategory = async function (req, res) {
   let id = req.body.id;
   let name = req.body.name;

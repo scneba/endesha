@@ -41,3 +41,7 @@ exports.questionRequired = "QUESTION_IS_REQUIRED";
 exports.categoryRequired = "CATEGORY_REQUIRED";
 exports.categoryNotFound = "CATEGORY_NOT_FOUND";
 exports.answerNotFound = "ANSWER_NOT_FOUND";
+exports.questionExists = "QUESTION_ALREADY_EXISTS";
+exports.fileNameRequired = "FILE_NAME_REQUIRED";
+exports.fileNameExist = "FILE_NAME_ALREADY_EXISTS";
+exports.fileRequired = "IMAGE_REQUIRED";

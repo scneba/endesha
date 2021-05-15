@@ -18,7 +18,10 @@ const env = process.env.NODE_ENV || "development";
 
 var app = express();
 
-app.use(express.static(path.join(__dirname, "public")));
+//get root path and make it global for future use
+let basePath = __dirname;
+global.__basedir = basePath.substring(0, basePath.lastIndexOf("/"));
+app.use(express.static(path.join(basePath, "public"))); //this won't work
 app.use(cors());
 app.use(logger("dev"));
 app.use(express.json());
@@ -40,7 +43,7 @@ if (env == "development") {
   var fileStoreOptions = {
     secret: process.env.COOKIE_SECRET,
     ttl: 30 * 24 * 60 * 60,
-    path: "./storage/endesha/sessions",
+    path: "storage/endesha/sessions",
   };
   app.use(
     session({

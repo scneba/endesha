@@ -21,3 +21,5 @@ exports.questionRequired = "QUESTION_IS_REQUIRED";
 exports.categoryRequired = "CATEGORY_REQUIRED";
 exports.categoryNotFound = "CATEGORY_NOT_FOUND";
 exports.answerNotFound = "ANSWER_NOT_FOUND";
+exports.fileNameorIdRequired = "FILE_NAME_OR_ID_REQUIRED";
+exports.fileNotFound = "FILE_NOT_FOUND";

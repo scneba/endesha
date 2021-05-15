@@ -3,10 +3,73 @@ const {
   Answer,
   UserAnswer,
   Question,
-  sequelize,
+  Image,
   Sequelize,
   Op,
 } = require("../models");
+
+exports.fileExists = async function (id, name) {
+  //validate request
+  try {
+    let image;
+    if (id && id.length > 0) {
+      image = await Image.findByPk(id);
+    } else {
+      image = await Image.findOne({
+        where: { name },
+      });
+    }
+    if (image == null) {
+      return false;
+    } else {
+      return true;
+    }
+  } catch (e) {
+    throw e;
+  }
+};
+
+exports.addImage = async function (name, path) {
+  try {
+    const f = await Image.create({ name, path });
+    return f;
+  } catch (e) {
+    throw e;
+  }
+};
+exports.updateFile = async function (id, name, path) {
+  where = {};
+  if (name && name.length > 0) {
+    where.name = name;
+  } else if (id && id.length > 0) {
+    where.id = id;
+  }
+
+  try {
+    await Image.update({ path }, { where });
+    let image = await Image.findOne({ where });
+    return image;
+  } catch (e) {
+    throw e;
+  }
+};
+
+exports.getImages = async function (id, name) {
+  let image;
+  if (id && id.length > 0) {
+    image = await Image.findByPk(id);
+  } else if (name && name.length > 0) {
+    image = await Image.findOne({
+      where: { name },
+    });
+  } else {
+    image = await Image.findAll({
+      order: [["createdAt", "DESC"]],
+      logging: console.log,
+    });
+  }
+  return image;
+};
 
 //Categories
 exports.categoryExists = async function (id, name) {
@@ -68,6 +131,15 @@ exports.updateCategory = async function (id, name, description) {
 exports.deleteCategory = async function (id) {
   try {
     await Category.destroy({ where: { id } });
+    return id;
+  } catch (e) {
+    throw e;
+  }
+};
+
+exports.deletePicture = async function (id) {
+  try {
+    await Image.destroy({ where: { id } });
     return id;
   } catch (e) {
     throw e;
@@ -322,12 +394,20 @@ exports.questionExists = async function (id, question) {
 //add question
 exports.addQuestion = async function (question, category_id, answer_id) {
   try {
-    let savedQuestion = await Question.create({
+    const q = await Question.create({
       question,
       category_id,
       answer_id,
     });
-
+    const savedQuestion = await Question.findByPk(q.id, {
+      include: [
+        {
+          model: Answer,
+          as: "correct_answer",
+          attributes: ["id", "short_description", "answer"],
+        },
+      ],
+    });
     return savedQuestion;
   } catch (e) {
     throw e;

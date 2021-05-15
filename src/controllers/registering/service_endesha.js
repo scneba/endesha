@@ -3,6 +3,66 @@ const userRepo = require("../../data/baseRepo");
 const uuid = require("uuid");
 const helpers = require("../../utils/helpers");
 const errors = require("./errors");
+
+exports.uploadImage = async function (req, res) {
+  let file = req.file;
+  let name = req.body.name;
+  let data = { name };
+  try {
+    let errs = await validateFile(file, name);
+    if (errs.length > 0) {
+      helpers.writeBadRequest(res, errs);
+      return;
+    }
+
+    let image = await repo.addImage(name, file.filename);
+    helpers.writeCreated(res, image);
+  } catch (e) {
+    console.log(e);
+    let err = helpers.buildError(
+      errors.internalServerErr,
+      "Unable to save image: " + e,
+      data,
+    );
+    helpers.writeServerError(res, err);
+  }
+};
+const validateFile = async function (file, name) {
+  let data = { name };
+  let errs = [];
+  if (file == null) {
+    errs = helpers.buildError(
+      errors.fileRequired,
+      "An image is required",
+      data,
+    );
+  }
+  if (name == null || name.length == 0) {
+    errs = helpers.addError(
+      errs,
+      errors.fileNameRequired,
+      "File name is required",
+      data,
+    );
+  }
+  if (errs.length > 0) {
+    return errs;
+  }
+
+  try {
+    let found = await repo.fileExists("", name);
+    if (found) {
+      errs = helpers.buildError(
+        errors.fileNameExist,
+        "File name already exists",
+        data,
+      );
+    }
+  } catch (e) {
+    throw e;
+  }
+  return errs;
+};
 exports.addCategory = async function (req, res) {
   try {
     let name = req.body.name;
@@ -13,8 +73,8 @@ exports.addCategory = async function (req, res) {
       helpers.writeBadRequest(res, errs);
       return;
     }
-    let id = await repo.addCategory(name, description);
-    helpers.writeCreated(res, id);
+    let cat = await repo.addCategory(name, description);
+    helpers.writeCreated(res, cat);
   } catch (error) {
     console.log(error);
     let err = helpers.buildError(
@@ -130,7 +190,7 @@ exports.addUserAnswer = async function (req, res) {
     let resp;
     //I'd prefer to get the id and update by it
     if (found) {
-      resp = await repo.updateUserAnswer("",user_id, question_id, answer);
+      resp = await repo.updateUserAnswer("", user_id, question_id, answer);
     } else {
       resp = await repo.addUserAnswer(user_id, question_id, answer);
     }
@@ -230,7 +290,7 @@ exports.addQuestion = async function (req, res) {
       let ans = await repo.addAnswer(description, answer);
       answerID = ans.id;
     }
-    let savedQuestion = repo.addQuestion(question, category_id, answerID);
+    let savedQuestion = await repo.addQuestion(question, category_id, answerID);
     helpers.writeCreated(res, savedQuestion);
   } catch (error) {
     console.log(error);
@@ -299,6 +359,16 @@ async function validateQuestion(
       errs = helpers.addError(
         errs,
         errors.categoryNotFound,
+        "Category not found",
+        data,
+      );
+    }
+
+    found = await repo.questionExists("", question);
+    if (found) {
+      errs = helpers.addError(
+        errs,
+        errors.questionExists,
         "Category not found",
         data,
       );
