@@ -210,6 +210,7 @@ exports.updateAnswer = async function (id, description, answer) {
   try {
     await Answer.update({ ...updateValues }, { where: { id } });
     let ans = await Answer.findByPk(id);
+    console.log(ans);
     return ans;
   } catch (e) {
     throw e;

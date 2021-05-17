@@ -25,6 +25,11 @@ module.exports = {
           name: "Practical",
           description: "Driving Practicals",
         },
+        {
+          id: "06615861-1659-47db-89fa-b81732a6573a",
+          name: "ToDelete",
+          description: "To Delete",
+        },
       ],
       {},
     );

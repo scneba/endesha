@@ -145,6 +145,7 @@ exports.updateAnswer = async function (req, res) {
       return;
     }
     let ans = await repo.updateAnswer(id, description, answer);
+    console.log(ans);
     helpers.writeSuccess(res, ans);
   } catch (error) {
     console.log(error);
@@ -162,9 +163,21 @@ async function validateAnswer(id, description, answer) {
   if (errs.length > 0) {
     return errs;
   }
-  if (description && description.length > 0) {
-    try {
-      let found = await repo.answerExists(id, description);
+
+  try {
+    let found = await repo.answerExists(id, "");
+    if (!found) {
+      errs = helpers.addError(
+        errs,
+        errors.idNotFound,
+        "Answer ID not found",
+        data,
+      );
+      return errs;
+    }
+
+    if (description && description.length > 0) {
+      found = await repo.answerExists(id, description);
       if (found) {
         errs = helpers.addError(
           errs,
@@ -173,9 +186,9 @@ async function validateAnswer(id, description, answer) {
           data,
         );
       }
-    } catch (e) {
-      throw e;
     }
+  } catch (e) {
+    throw e;
   }
   return errs;
 }
