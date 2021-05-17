@@ -4,65 +4,6 @@ const uuid = require("uuid");
 const helpers = require("../../utils/helpers");
 const errors = require("./errors");
 
-exports.uploadImage = async function (req, res) {
-  let file = req.file;
-  let name = req.body.name;
-  let data = { name };
-  try {
-    let errs = await validateFile(file, name);
-    if (errs.length > 0) {
-      helpers.writeBadRequest(res, errs);
-      return;
-    }
-
-    let image = await repo.addImage(name, file.filename);
-    helpers.writeCreated(res, image);
-  } catch (e) {
-    console.log(e);
-    let err = helpers.buildError(
-      errors.internalServerErr,
-      "Unable to save image: " + e,
-      data,
-    );
-    helpers.writeServerError(res, err);
-  }
-};
-const validateFile = async function (file, name) {
-  let data = { name };
-  let errs = [];
-  if (file == null) {
-    errs = helpers.buildError(
-      errors.fileRequired,
-      "An image is required",
-      data,
-    );
-  }
-  if (name == null || name.length == 0) {
-    errs = helpers.addError(
-      errs,
-      errors.fileNameRequired,
-      "File name is required",
-      data,
-    );
-  }
-  if (errs.length > 0) {
-    return errs;
-  }
-
-  try {
-    let found = await repo.fileExists("", name);
-    if (found) {
-      errs = helpers.buildError(
-        errors.fileNameExist,
-        "File name already exists",
-        data,
-      );
-    }
-  } catch (e) {
-    throw e;
-  }
-  return errs;
-};
 exports.addCategory = async function (req, res) {
   try {
     let name = req.body.name;
@@ -369,7 +310,7 @@ async function validateQuestion(
       errs = helpers.addError(
         errs,
         errors.questionExists,
-        "Category not found",
+        "Question already exists",
         data,
       );
     }
@@ -415,3 +356,63 @@ async function validateQuestion(
   }
   return errs;
 }
+
+exports.uploadImage = async function (req, res) {
+  let file = req.file;
+  let name = req.body.name;
+  let data = { name };
+  try {
+    let errs = await validateFile(file, name);
+    if (errs.length > 0) {
+      helpers.writeBadRequest(res, errs);
+      return;
+    }
+
+    let image = await repo.addImage(name, file.filename);
+    helpers.writeCreated(res, image);
+  } catch (e) {
+    console.log(e);
+    let err = helpers.buildError(
+      errors.internalServerErr,
+      "Unable to save image: " + e,
+      data,
+    );
+    helpers.writeServerError(res, err);
+  }
+};
+const validateFile = async function (file, name) {
+  let data = { name };
+  let errs = [];
+  if (file == null) {
+    errs = helpers.buildError(
+      errors.fileRequired,
+      "An image is required",
+      data,
+    );
+  }
+  if (name == null || name.length == 0) {
+    errs = helpers.addError(
+      errs,
+      errors.fileNameRequired,
+      "File name is required",
+      data,
+    );
+  }
+  if (errs.length > 0) {
+    return errs;
+  }
+
+  try {
+    let found = await repo.fileExists("", name);
+    if (found) {
+      errs = helpers.buildError(
+        errors.fileNameExist,
+        "File name already exists",
+        data,
+      );
+    }
+  } catch (e) {
+    throw e;
+  }
+  return errs;
+};
