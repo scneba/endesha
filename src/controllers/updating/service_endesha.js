@@ -4,56 +4,6 @@ const uuid = require("uuid");
 const helpers = require("../../utils/helpers");
 const errors = require("./errors");
 
-exports.updateImage = async function (req, res) {
-  let id = req.body.id;
-  let name = req.body.name;
-  let file = req.file;
-  var data = { id, name };
-  try {
-    let errs = await validateFile(file, id, name);
-    if (errs.length > 0) {
-      helpers.writeBadRequest(res, errs);
-      return;
-    }
-    let image = await repo.updateFile(id, name, file.filename);
-    helpers.writeSuccess(res, image);
-  } catch (e) {
-    console.log(e);
-  }
-};
-
-const validateFile = async function (file, id, name) {
-  let data = { id, name };
-  let errs = [];
-  if (file == null) {
-    errs = helpers.buildError(
-      errors.fileRequired,
-      "An image is required",
-      data,
-    );
-  }
-  if ((id == null || id.length == 0) && (name == null || name.length == 0)) {
-    errs = helpers.addError(
-      errs,
-      errors.fileNameorIdRequired,
-      "Name or ID required for update",
-      data,
-    );
-  }
-  if (errs.length > 0) {
-    return errs;
-  }
-
-  try {
-    let found = await repo.fileExists(id, name);
-    if (!found) {
-      errs = helpers.buildError(errors.fileNotFound, "File not found", data);
-    }
-  } catch (e) {
-    throw e;
-  }
-  return errs;
-};
 exports.updateCategory = async function (req, res) {
   let id = req.body.id;
   let name = req.body.name;
@@ -137,7 +87,7 @@ exports.updateAnswer = async function (req, res) {
   let id = req.body.id;
   let description = req.body.short_description;
   let answer = req.body.answer;
-  var data = { id, description, answer };
+  var data = { id, short_description: description, answer };
   try {
     let errs = await validateAnswer(id, description, answer);
     if (errs.length > 0) {
@@ -145,7 +95,6 @@ exports.updateAnswer = async function (req, res) {
       return;
     }
     let ans = await repo.updateAnswer(id, description, answer);
-    console.log(ans);
     helpers.writeSuccess(res, ans);
   } catch (error) {
     console.log(error);
@@ -158,7 +107,7 @@ exports.updateAnswer = async function (req, res) {
   }
 };
 async function validateAnswer(id, description, answer) {
-  let data = { id, description, answer };
+  let data = { id, short_description: description, answer };
   let errs = validateID(id, data);
   if (errs.length > 0) {
     return errs;
@@ -204,7 +153,6 @@ exports.updateUserAnswer = async function (req, res) {
       return;
     }
     let resp = await repo.updateUserAnswer(id, "", "", answer);
-    console.log(resp);
     helpers.writeSuccess(res, resp);
   } catch (error) {
     console.log(error);
@@ -285,7 +233,8 @@ async function validateQuestion(id, question, category_id, answer_id) {
   if (errs.length > 0) {
     return errs;
   }
-  let found = repo.questionExists(id);
+  let found = await repo.questionExists(id);
+  console.log(found);
   if (!found) {
     errs = helpers.addError(
       errs,
@@ -293,13 +242,15 @@ async function validateQuestion(id, question, category_id, answer_id) {
       "Question ID not found: " + id,
       data,
     );
+  }
+  if (errs.length > 0) {
     return errs;
   }
 
   try {
     if (question && question.length > 0) {
       //check that the question update is not alreay in db
-      found = repo.questionExists(id, question);
+      found = await repo.questionExists(id, question);
       if (found) {
         errs = helpers.addError(
           errs,
@@ -344,3 +295,53 @@ async function validateQuestion(id, question, category_id, answer_id) {
   }
   return errs;
 }
+exports.updateImage = async function (req, res) {
+  let id = req.body.id;
+  let name = req.body.name;
+  let file = req.file;
+  var data = { id, name };
+  try {
+    let errs = await validateFile(file, id, name);
+    if (errs.length > 0) {
+      helpers.writeBadRequest(res, errs);
+      return;
+    }
+    let image = await repo.updateFile(id, name, file.filename);
+    helpers.writeSuccess(res, image);
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+const validateFile = async function (file, id, name) {
+  let data = { id, name };
+  let errs = [];
+  if (file == null) {
+    errs = helpers.buildError(
+      errors.fileRequired,
+      "An image is required",
+      data,
+    );
+  }
+  if ((id == null || id.length == 0) && (name == null || name.length == 0)) {
+    errs = helpers.addError(
+      errs,
+      errors.fileNameorIdRequired,
+      "Name or ID required for update",
+      data,
+    );
+  }
+  if (errs.length > 0) {
+    return errs;
+  }
+
+  try {
+    let found = await repo.fileExists(id, name);
+    if (!found) {
+      errs = helpers.buildError(errors.fileNotFound, "File not found", data);
+    }
+  } catch (e) {
+    throw e;
+  }
+  return errs;
+};
