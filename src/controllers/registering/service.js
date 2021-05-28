@@ -226,7 +226,22 @@ exports.login = async function (req, res) {
   //if session already exists, return success
   if (req.session) {
     if (req.session.username || req.session.email) {
-      helpers.writeSuccess(res, { msg: "Session already running" });
+      try {
+        let user = await baseRepo.getSingleUser(
+          "",
+          req.session.username,
+          req.session.email,
+        );
+        helpers.writeSuccess(res, user);
+      } catch (error) {
+        console.log(error);
+        let err = helpers.buildError(
+          errors.internalServerErr,
+          "Unable to perform login:" + error,
+          data,
+        );
+        helpers.writeServerError(res, err);
+      }
       return;
     }
   }
@@ -282,7 +297,7 @@ exports.login = async function (req, res) {
       if (result) {
         req.session.username = username;
         req.session.email = email;
-        helpers.writeSuccess(res, { msg: "Login Successful" });
+        helpers.writeSuccess(res, user);
       } else {
         errs = helpers.buildError(
           errors.incorrectPassword,

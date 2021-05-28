@@ -34,6 +34,44 @@ exports.getUsers = async function (req, res) {
   }
 };
 
+exports.getCurrentUser = async function (req, res) {
+  if (req.session) {
+    if (req.session.username || req.session.email) {
+      try {
+        let data = await baseRepo.getSingleUser(
+          "",
+          req.session.username,
+          req.session.email,
+        );
+        if (data) {
+          helpers.writeSuccess(res, data);
+        } else {
+          let errs = helpers.buildError(errors.notFound, "User not found", {
+            id,
+            username,
+            email,
+          });
+          helpers.writeBadRequest(res, errs);
+        }
+      } catch (error) {
+        let err = helpers.buildError(
+          errors.internalServerErr,
+          "Unable to Current user:" + error,
+          {},
+        );
+        helpers.writeServerError(res, err);
+      }
+    } else {
+      errs = helpers.buildError(
+        errors.noUserLoggedIn,
+        "No user is logged in",
+        {},
+      );
+      helpers.writeBadRequest(res, errs);
+    }
+  }
+};
+
 exports.getRoles = async function (req, res) {
   try {
     let name = req.query.name;

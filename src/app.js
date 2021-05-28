@@ -22,7 +22,11 @@ var app = express();
 let basePath = __dirname;
 global.__basedir = basePath.substring(0, basePath.lastIndexOf("/"));
 app.use(express.static(path.join(basePath, "public"))); //this won't work
-app.use(cors());
+const corsConfig = {
+  credentials: true,
+  origin: true,
+};
+app.use(cors(corsConfig));
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

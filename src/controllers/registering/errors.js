@@ -45,3 +45,4 @@ exports.questionExists = "QUESTION_ALREADY_EXISTS";
 exports.fileNameRequired = "FILE_NAME_REQUIRED";
 exports.fileNameExist = "FILE_NAME_ALREADY_EXISTS";
 exports.fileRequired = "IMAGE_REQUIRED";
+exports.noUserLoggedIn = "NO_USER_LOGGED_IN";
