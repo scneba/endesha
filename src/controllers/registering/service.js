@@ -389,16 +389,6 @@ async function validateRole(id, name, permissions) {
     );
   }
 
-  //for now, don't add a role without a permission
-  //eventually, this should add default roles
-  if (permissions == null || permissions.length == 0) {
-    errs = helpers.addError(
-      errs,
-      errors.onePermissionRequired,
-      "Role must have at least one permission",
-      data,
-    );
-  }
   if (errs.length > 0) {
     return errs;
   }
@@ -412,25 +402,28 @@ async function validateRole(id, name, permissions) {
       );
     }
 
-    for (let perm_id of permissions) {
-      let valid = uuid.validate(perm_id);
-      if (!valid) {
-        errs = helpers.addError(
-          errs,
-          errors.invalidUUID,
-          "Invalid UUID",
-          perm_id,
-        );
-        continue;
-      }
-      found = await baseRepo.permissionExists(perm_id, "", "");
-      if (!found) {
-        errs = helpers.addError(
-          errs,
-          errors.permissionNotFound,
-          "Permission does not exist",
-          perm_id,
-        );
+    //check permissions if they exists
+    if (permissions) {
+      for (let perm_id of permissions) {
+        let valid = uuid.validate(perm_id);
+        if (!valid) {
+          errs = helpers.addError(
+            errs,
+            errors.invalidUUID,
+            "Invalid UUID",
+            perm_id,
+          );
+          continue;
+        }
+        found = await baseRepo.permissionExists(perm_id, "", "");
+        if (!found) {
+          errs = helpers.addError(
+            errs,
+            errors.permissionNotFound,
+            "Permission does not exist",
+            perm_id,
+          );
+        }
       }
     }
   } catch (e) {
@@ -467,6 +460,7 @@ async function validateUser(id, name, email, username, password, roles) {
       data,
     );
   }
+
   if (password == null || password.length == 0) {
     errs = helpers.addError(
       errs,
@@ -476,15 +470,16 @@ async function validateUser(id, name, email, username, password, roles) {
     );
   }
 
-  //for now, don't add a user without a role
-  if (roles == null || roles.length == 0) {
-    errs = helpers.addError(
-      errs,
-      errors.oneRoleRequired,
-      "User must have at least one role",
-      data,
-    );
-  }
+  //making role optional
+  //TODO - add default role if user has no role
+  // if (roles == null || roles.length == 0) {
+  //   errs = helpers.addError(
+  //     errs,
+  //     errors.oneRoleRequired,
+  //     "User must have at least one role",
+  //     data,
+  //   );
+  // }
   if (errs.length > 0) {
     return errs;
   }
@@ -499,35 +494,39 @@ async function validateUser(id, name, email, username, password, roles) {
       );
     }
 
-    found = await baseRepo.userExists(id, "", username);
-    if (found) {
-      errs = helpers.addError(
-        errs,
-        errors.userNameExists,
-        "Username already exists",
-        data,
-      );
+    if (username) {
+      found = await baseRepo.userExists(id, "", username);
+      if (found) {
+        errs = helpers.addError(
+          errs,
+          errors.userNameExists,
+          "Username already exists",
+          data,
+        );
+      }
     }
 
-    for (let roleID of roles) {
-      let valid = uuid.validate(roleID);
-      if (!valid) {
-        errs = helpers.addError(
-          errs,
-          errors.invalidUUID,
-          "Invalid UUID",
-          roleID,
-        );
-        continue;
-      }
-      found = await baseRepo.roleExists(roleID, "");
-      if (!found) {
-        errs = helpers.addError(
-          errs,
-          errors.roleNotExist,
-          "Role with ID does not exist",
-          roleID,
-        );
+    if (roles) {
+      for (let roleID of roles) {
+        let valid = uuid.validate(roleID);
+        if (!valid) {
+          errs = helpers.addError(
+            errs,
+            errors.invalidUUID,
+            "Invalid UUID",
+            roleID,
+          );
+          continue;
+        }
+        found = await baseRepo.roleExists(roleID, "");
+        if (!found) {
+          errs = helpers.addError(
+            errs,
+            errors.roleNotExist,
+            "Role with ID does not exist",
+            roleID,
+          );
+        }
       }
     }
   } catch (e) {

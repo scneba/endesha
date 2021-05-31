@@ -10,16 +10,20 @@ router.get("/users", listingController.getUsers);
 router.post("/users", registeringController.addUser);
 router.patch("/users", updateController.updateUser);
 router.delete("/users", deleteController.deleteUser);
+router.put("/users", registeringController.putUser);
+
 router.get("/roles", listingController.getRoles);
 router.post("/roles", registeringController.addRole);
+router.put("/roles", registeringController.putRole);
 router.delete("/roles", deleteController.deleteRole);
 router.patch("/roles", updateController.updateRole);
+
+router.delete("/rolepermissions", deleteController.deleteRolePermission);
+router.delete("/userroles", deleteController.deleteUserRole);
+
 router.get("/permissions", listingController.getPermissions);
 router.post("/permissions", registeringController.addPermission);
 router.delete("/permissions", deleteController.deletePermission);
-
-router.put("/roles", registeringController.putRole);
-router.put("/users", registeringController.putUser);
 
 //router.put("/categories", baseController.getFirstCategory);
 // router.post("/status", baseController.addStatus);

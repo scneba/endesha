@@ -82,6 +82,14 @@ exports.getRoles = async function () {
             attributes: [],
           },
         },
+        {
+          model: User,
+          as: "users",
+          attributes: ["id", "email", "username"],
+          through: {
+            attributes: [],
+          },
+        },
       ],
     });
   } catch (error) {
@@ -108,6 +116,14 @@ exports.getSingleRole = async function (id, name) {
           model: Permission,
           as: "permissions",
           attributes: ["id", "path", "verb"],
+          through: {
+            attributes: [],
+          },
+        },
+        {
+          model: User,
+          as: "users",
+          attributes: ["id", "email", "username"],
           through: {
             attributes: [],
           },
@@ -183,7 +199,9 @@ exports.addRole = async function (name, description, permissions) {
       async (transaction) => {
         let role = await Role.create({ name, description }, { transaction });
 
-        await role.setPermissions(permissions, { transaction });
+        if (permissions && permissions.length > 0) {
+          await role.setPermissions(permissions, { transaction });
+        }
 
         return role;
       },
@@ -494,6 +512,32 @@ exports.deleteRole = async function (id) {
   try {
     await Role.destroy({ where: { id } });
     return id;
+  } catch (e) {
+    throw e;
+  }
+};
+
+exports.deleteRolePermission = async function (roleID, permissionID) {
+  try {
+    let role = await Role.findByPk(roleID);
+    let perm = await Permission.findByPk(permissionID);
+    if (role && perm) {
+      await role.removePermission(perm);
+    }
+    return permissionID;
+  } catch (e) {
+    throw e;
+  }
+};
+
+exports.deleteUserRole = async function (userID, roleID) {
+  try {
+    let user = await User.findByPk(userID);
+    let role = await Role.findByPk(roleID);
+    if (user && role) {
+      await user.removeRole(role);
+    }
+    return roleID;
   } catch (e) {
     throw e;
   }
