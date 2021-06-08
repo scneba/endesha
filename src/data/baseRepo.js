@@ -199,7 +199,7 @@ exports.addRole = async function (name, description, permissions) {
       async (transaction) => {
         let role = await Role.create({ name, description }, { transaction });
 
-        if (permissions && permissions.length > 0) {
+        if (permissions) {
           await role.setPermissions(permissions, { transaction });
         }
 
@@ -277,7 +277,16 @@ exports.addUser = async function (email, name, username, password, roles) {
           { name, email, username, password },
           { transaction },
         );
-        await user.setRoles(roles, { transaction });
+        if (roles) {
+          await user.setRoles(roles, { transaction });
+        } else {
+          let defaultRole = await Role.findByPk(
+            "2d7bb01e-9159-4ff5-ab5e-464345b704a5",
+          );
+          if (defaultRole) {
+            await user.setRoles(defaultRole, { transaction });
+          }
+        }
 
         return user;
       },

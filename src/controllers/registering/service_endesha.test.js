@@ -273,7 +273,7 @@ it("Image - should return 400 for no image or name supplied", async () => {
   expect(res.json).toHaveBeenCalledWith(expectedResponse);
 });
 
-it("Imiage - should return 400 when image name already exists", async () => {
+it("Image - should return 400 when image name already exists", async () => {
   //query supplied with the request
   let body = {
     name: "Cool Image",

@@ -722,9 +722,8 @@
 							"\r",
 							"pm.test(\"Right body returned\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData.errors).to.have.length(2);\r",
+							"    pm.expect(jsonData.errors).to.have.length(1);\r",
 							"    pm.expect(jsonData.errors[0].err_code).to.be.eq(\"ROLE_NAME_REQUIRED\");\r",
-							"    pm.expect(jsonData.errors[1].err_code).to.be.eq(\"ONE_PERMISSION_REQUIRED\");\r",
 							"    });"
 						],
 						"type": "text/javascript"
@@ -816,11 +815,10 @@
 							"\r",
 							"pm.test(\"Right body returned\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData.errors).to.have.length(4);\r",
+							"    pm.expect(jsonData.errors).to.have.length(3);\r",
 							"    pm.expect(jsonData.errors[0].err_code).to.be.eq(\"NAME_REQUIRED\");\r",
 							"    pm.expect(jsonData.errors[1].err_code).to.be.eq(\"EMAIL_REQUIRED\");\r",
 							"    pm.expect(jsonData.errors[2].err_code).to.be.eq(\"USERNAME_REQUIRED\");\r",
-							"    pm.expect(jsonData.errors[3].err_code).to.be.eq(\"ONE_ROLE_REQUIRED\");\r",
 							"});"
 						],
 						"type": "text/javascript"

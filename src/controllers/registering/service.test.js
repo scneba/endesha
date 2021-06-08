@@ -120,12 +120,6 @@ describe("Test adding Roles", () => {
       "Role name is required",
       data,
     );
-    errs = helpers.addError(
-      errs,
-      errors.onePermissionRequired,
-      "Role must have at least one permission",
-      data,
-    );
 
     //use interceptors to  mock req and response values
     const res = mockResponse();
@@ -210,12 +204,6 @@ describe("Test adding Users", () => {
       errs,
       errors.passwordRequired,
       "Password is required",
-      data,
-    );
-    errs = helpers.addError(
-      errs,
-      errors.oneRoleRequired,
-      "User must have at least one role",
       data,
     );
     let expectedResponse = helpers.mockExpectedResponse({}, errs);

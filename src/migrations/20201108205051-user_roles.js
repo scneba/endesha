@@ -39,6 +39,14 @@ module.exports = {
         },
       },
     );
+
+    //add admin user role
+    await queryInterface.bulkInsert("user_roles", [
+      {
+        user_id: "f0784b55-3c34-4fb9-b1ff-5d679485b495",
+        role_id: "171e397f-c4cb-498d-a36b-10192fe6d050",
+      },
+    ]);
   },
   down: async (queryInterface, DataTypes) => {
     await queryInterface.dropTable("user_roles");
