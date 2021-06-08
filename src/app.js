@@ -63,7 +63,7 @@ if (env == "development") {
 app.use("/auth/", authRoutes);
 app.use("/endesha/", endeshaProtected);
 app.use(authorizeMiddleware.authenticate);
-//app.use(authorizeMiddleware.authorize);
+app.use(authorizeMiddleware.authorize);
 app.use("/api/", baseRoutes);
 
 // catch 404 and forward to error handler
