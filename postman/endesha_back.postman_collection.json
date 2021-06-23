@@ -1,8 +1,8 @@
 {
 	"info": {
-		"_postman_id": "b6c35bcf-f5a1-4192-91d3-9801d2906e09",
+		"_postman_id": "0a339b94-ef0d-4999-a49c-47be97ae05c3",
 		"name": "endesha_back",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
 		{
@@ -36,16 +36,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{domain}}/auth/login",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"auth",
-						"login"
-					]
-				}
+				"url": "{{domain}}/auth/login"
 			},
 			"response": []
 		},
@@ -83,16 +74,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{domain}}/api/permissions",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"api",
-						"permissions"
-					]
-				}
+				"url": "{{domain}}/api/permissions"
 			},
 			"response": []
 		},
@@ -130,16 +112,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{domain}}/api/permissions",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"api",
-						"permissions"
-					]
-				}
+				"url": "{{domain}}/api/permissions"
 			},
 			"response": []
 		},
@@ -186,16 +159,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{domain}}/api/roles",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"api",
-						"roles"
-					]
-				}
+				"url": "{{domain}}/api/roles"
 			},
 			"response": []
 		},
@@ -243,16 +207,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{domain}}/api/roles",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"api",
-						"roles"
-					]
-				}
+				"url": "{{domain}}/api/roles"
 			},
 			"response": []
 		},
@@ -290,16 +245,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{domain}}/api/users",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"api",
-						"users"
-					]
-				}
+				"url": "{{domain}}/api/users"
 			},
 			"response": []
 		},
@@ -339,16 +285,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{domain}}/api/users",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"api",
-						"users"
-					]
-				}
+				"url": "{{domain}}/api/users"
 			},
 			"response": []
 		},
@@ -386,16 +323,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{domain}}/api/users",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"api",
-						"users"
-					]
-				}
+				"url": "{{domain}}/api/users"
 			},
 			"response": []
 		},
@@ -432,16 +360,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{domain}}/api/users",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"api",
-						"users"
-					]
-				}
+				"url": "{{domain}}/api/users"
 			},
 			"response": []
 		},
@@ -479,16 +398,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{domain}}/api/roles",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"api",
-						"roles"
-					]
-				}
+				"url": "{{domain}}/api/roles"
 			},
 			"response": []
 		},
@@ -526,16 +436,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{domain}}/api/roles",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"api",
-						"roles"
-					]
-				}
+				"url": "{{domain}}/api/roles"
 			},
 			"response": []
 		},
@@ -696,16 +597,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{domain}}/api/roles",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"api",
-						"roles"
-					]
-				}
+				"url": "{{domain}}/api/roles"
 			},
 			"response": []
 		},
@@ -742,16 +634,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{domain}}/api/roles",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"api",
-						"roles"
-					]
-				}
+				"url": "{{domain}}/api/roles"
 			},
 			"response": []
 		},
@@ -789,16 +672,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{domain}}/api/users",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"api",
-						"users"
-					]
-				}
+				"url": "{{domain}}/api/users"
 			},
 			"response": []
 		},
@@ -837,16 +711,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{domain}}/api/users",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"api",
-						"users"
-					]
-				}
+				"url": "{{domain}}/api/users"
 			},
 			"response": []
 		},
@@ -877,16 +742,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{domain}}/api/roles",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"api",
-						"roles"
-					]
-				}
+				"url": "{{domain}}/api/roles"
 			},
 			"response": []
 		},
@@ -917,16 +773,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{domain}}/api/users",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"api",
-						"users"
-					]
-				}
+				"url": "{{domain}}/api/users"
 			},
 			"response": []
 		},
@@ -957,16 +804,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{domain}}/api/permissions",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"api",
-						"permissions"
-					]
-				}
+				"url": "{{domain}}/api/permissions"
 			},
 			"response": []
 		},
@@ -1004,16 +842,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{domain}}/endesha/categories",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"endesha",
-						"categories"
-					]
-				}
+				"url": "{{domain}}/endesha/categories"
 			},
 			"response": []
 		},
@@ -1052,16 +881,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{domain}}/endesha/categories",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"endesha",
-						"categories"
-					]
-				}
+				"url": "{{domain}}/endesha/categories"
 			},
 			"response": []
 		},
@@ -1099,16 +919,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{domain}}/endesha/categories",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"endesha",
-						"categories"
-					]
-				}
+				"url": "{{domain}}/endesha/categories"
 			},
 			"response": []
 		},
@@ -1146,16 +957,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{domain}}/endesha/categories",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"endesha",
-						"categories"
-					]
-				}
+				"url": "{{domain}}/endesha/categories"
 			},
 			"response": []
 		},
@@ -1193,16 +995,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{domain}}/endesha/useranswers",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"endesha",
-						"useranswers"
-					]
-				}
+				"url": "{{domain}}/endesha/useranswers"
 			},
 			"response": []
 		},
@@ -1240,16 +1033,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{domain}}/endesha/useranswers",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"endesha",
-						"useranswers"
-					]
-				}
+				"url": "{{domain}}/endesha/useranswers"
 			},
 			"response": []
 		},
@@ -1287,16 +1071,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{domain}}/endesha/useranswers",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"endesha",
-						"useranswers"
-					]
-				}
+				"url": "{{domain}}/endesha/useranswers"
 			},
 			"response": []
 		},
@@ -1335,16 +1110,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{domain}}/endesha/useranswers",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"endesha",
-						"useranswers"
-					]
-				}
+				"url": "{{domain}}/endesha/useranswers"
 			},
 			"response": []
 		},
@@ -1375,23 +1141,14 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"short_description\":\"compulsory turn Left Sign {{$randomPassword}}\",\r\n    \"answer\":\"Must turn left ahead,  example joining a one way traffic road.\"\r\n}",
+					"raw": "{\r\n    \"short_description\":\"compulsory turn Left Sign {{$randomPassword}}\",\r\n    \"answer\":\"Must turn left ahead,  example joining a one way traffic road.\",\r\n    \"answer_md\":\"Must turn left ahead,  example joining a one way traffic road.\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
 						}
 					}
 				},
-				"url": {
-					"raw": "{{domain}}/endesha/answers",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"endesha",
-						"answers"
-					]
-				}
+				"url": "{{domain}}/endesha/answers"
 			},
 			"response": []
 		},
@@ -1422,23 +1179,14 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"id\": \"08615861-1659-47db-89fa-b81732a6576a\",\r\n    \"short_description\":\"compulsory turn Left Sign new{{$randomPassword}}\",\r\n    \"answer\":\"Must turn left ahead,  example joining a one way traffic road new.\"\r\n}",
+					"raw": "{\r\n    \"id\": \"08615861-1659-47db-89fa-b81732a6576a\",\r\n    \"short_description\":\"compulsory turn Left Sign new{{$randomPassword}}\",\r\n    \"answer\":\"Must turn left ahead,  example joining a one way traffic road new.\",\r\n    \"answer_md\":\"Must turn left ahead,  example joining a one way traffic road new.\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
 						}
 					}
 				},
-				"url": {
-					"raw": "{{domain}}/endesha/answers",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"endesha",
-						"answers"
-					]
-				}
+				"url": "{{domain}}/endesha/answers"
 			},
 			"response": []
 		},
@@ -1476,16 +1224,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{domain}}/endesha/answers",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"endesha",
-						"answers"
-					]
-				}
+				"url": "{{domain}}/endesha/answers"
 			},
 			"response": []
 		},
@@ -1524,16 +1263,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{domain}}/endesha/answers",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"endesha",
-						"answers"
-					]
-				}
+				"url": "{{domain}}/endesha/answers"
 			},
 			"response": []
 		},
@@ -1571,16 +1301,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{domain}}/endesha/questions",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"endesha",
-						"questions"
-					]
-				}
+				"url": "{{domain}}/endesha/questions"
 			},
 			"response": []
 		},
@@ -1618,16 +1339,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{domain}}/endesha/questions",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"endesha",
-						"questions"
-					]
-				}
+				"url": "{{domain}}/endesha/questions"
 			},
 			"response": []
 		},
@@ -1666,16 +1378,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{domain}}/endesha/questions",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"endesha",
-						"questions"
-					]
-				}
+				"url": "{{domain}}/endesha/questions"
 			},
 			"response": []
 		},
@@ -1713,16 +1416,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{domain}}/endesha/questions",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"endesha",
-						"questions"
-					]
-				}
+				"url": "{{domain}}/endesha/questions"
 			},
 			"response": []
 		},
@@ -1764,16 +1458,7 @@
 						}
 					]
 				},
-				"url": {
-					"raw": "{{domain}}/endesha/images",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"endesha",
-						"images"
-					]
-				}
+				"url": "{{domain}}/endesha/images"
 			},
 			"response": []
 		},
@@ -1815,16 +1500,7 @@
 						}
 					]
 				},
-				"url": {
-					"raw": "{{domain}}/endesha/images",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"endesha",
-						"images"
-					]
-				}
+				"url": "{{domain}}/endesha/images"
 			},
 			"response": []
 		},
@@ -1862,16 +1538,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{domain}}/endesha/images",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"endesha",
-						"images"
-					]
-				}
+				"url": "{{domain}}/endesha/images"
 			},
 			"response": []
 		},
@@ -1906,16 +1573,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{domain}}/auth/logout",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"auth",
-						"logout"
-					]
-				}
+				"url": "{{domain}}/auth/logout"
 			},
 			"response": []
 		}

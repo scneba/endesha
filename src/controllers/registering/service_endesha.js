@@ -60,13 +60,14 @@ exports.addAnswer = async function (req, res) {
   try {
     let description = req.body.short_description;
     let answer = req.body.answer;
-    var data = { short_description: description, answer: answer };
-    let errs = await validateAnswer(description, answer);
+    let answer_md = req.body.answer_md;
+    var data = { short_description: description, answer, answer_md };
+    let errs = await validateAnswer(description, answer, answer_md);
     if (errs.length > 0) {
       helpers.writeBadRequest(res, errs);
       return;
     }
-    let ans = await repo.addAnswer(description, answer);
+    let ans = await repo.addAnswer(description, answer, answer_md);
     helpers.writeCreated(res, ans);
   } catch (error) {
     console.log(error);
@@ -79,8 +80,8 @@ exports.addAnswer = async function (req, res) {
   }
 };
 
-async function validateAnswer(description, answer) {
-  let data = { short_description: description, answer: answer };
+async function validateAnswer(description, answer, answer_md) {
+  let data = { short_description: description, answer, answer_md };
   let errs = [];
   if (description == null || description.length == 0) {
     errs = helpers.buildError(
@@ -94,6 +95,14 @@ async function validateAnswer(description, answer) {
       errs,
       errors.answerRequired,
       "Answer required",
+      data,
+    );
+  }
+  if (answer_md == null || answer_md.length == 0) {
+    errs = helpers.addError(
+      errs,
+      errors.answerRequired,
+      "Markdown Answer is required",
       data,
     );
   }

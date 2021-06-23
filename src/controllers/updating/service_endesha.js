@@ -87,14 +87,15 @@ exports.updateAnswer = async function (req, res) {
   let id = req.body.id;
   let description = req.body.short_description;
   let answer = req.body.answer;
-  var data = { id, short_description: description, answer };
+  let answer_md = req.body.answer_md;
+  var data = { id, short_description: description, answer, answer_md };
   try {
-    let errs = await validateAnswer(id, description, answer);
+    let errs = await validateAnswer(id, description, answer, answer_md);
     if (errs.length > 0) {
       helpers.writeBadRequest(res, errs);
       return;
     }
-    let ans = await repo.updateAnswer(id, description, answer);
+    let ans = await repo.updateAnswer(id, description, answer, answer_md);
     helpers.writeSuccess(res, ans);
   } catch (error) {
     console.log(error);
@@ -106,7 +107,7 @@ exports.updateAnswer = async function (req, res) {
     helpers.writeServerError(res, err);
   }
 };
-async function validateAnswer(id, description, answer) {
+async function validateAnswer(id, description, answer, answer_md) {
   let data = { id, short_description: description, answer };
   let errs = validateID(id, data);
   if (errs.length > 0) {

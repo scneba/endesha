@@ -12,7 +12,11 @@ module.exports = {
         unique: true,
       },
       answer: {
-        type: Sequelize.STRING(2000),
+        type: Sequelize.STRING(50000),
+        allowNull: false,
+      },
+      answer_md: {
+        type: Sequelize.STRING(50000),
         allowNull: false,
       },
       createdAt: {

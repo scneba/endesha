@@ -63,7 +63,11 @@ it("Category - should return 400 when category name already exists", async () =>
 it("Answer - should return 400 when answer and answer descriptions are not provided", async () => {
   //query supplied with the request
   let body = {};
-  let data = { short_description: undefined, answer: undefined };
+  let data = {
+    short_description: undefined,
+    answer: undefined,
+    answer_id: undefined,
+  };
 
   //use interceptors to  mock req and response values
   const res = mockResponse();
@@ -74,6 +78,12 @@ it("Answer - should return 400 when answer and answer descriptions are not provi
     data,
   );
   errs = helpers.addError(errs, errors.answerRequired, "Answer required", data);
+  errs = helpers.addError(
+    errs,
+    errors.answerRequired,
+    "Markdown Answer is required",
+    data,
+  );
   let expectedResponse = helpers.mockExpectedResponse({}, errs);
   await addAnswer(req, res);
 
@@ -84,7 +94,11 @@ it("Answer - should return 400 when answer and answer descriptions are not provi
 
 it("Answer - should return 400 when description already exists", async () => {
   //query supplied with the request
-  let body = { short_description: "CoolDescription", answer: "Cool Answer" };
+  let body = {
+    short_description: "CoolDescription",
+    answer: "Cool Answer",
+    answer_md: "Cool Answer",
+  };
 
   repo.answerExists.mockResolvedValue(Promise.resolve(true));
 

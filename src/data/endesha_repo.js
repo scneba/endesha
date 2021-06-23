@@ -198,7 +198,7 @@ exports.answerExists = async function (id, description) {
   }
 };
 
-exports.updateAnswer = async function (id, description, answer) {
+exports.updateAnswer = async function (id, description, answer, answer_md) {
   //build update values
   updateValues = {};
   if (description && description.length > 0) {
@@ -206,6 +206,9 @@ exports.updateAnswer = async function (id, description, answer) {
   }
   if (answer && answer.length > 0) {
     updateValues.answer = answer;
+  }
+  if (answer_md && answer_md.length > 0) {
+    updateValues.answer_md = answer_md;
   }
   try {
     await Answer.update({ ...updateValues }, { where: { id } });
@@ -218,11 +221,12 @@ exports.updateAnswer = async function (id, description, answer) {
 };
 
 //add answer with description and answer
-exports.addAnswer = async function (description, answer) {
+exports.addAnswer = async function (description, answer, answer_md) {
   try {
     const ans = await Answer.create({
       short_description: description,
-      answer: answer,
+      answer,
+      answer_md,
     });
     return ans;
   } catch (e) {
