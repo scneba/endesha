@@ -1,2 +1,1 @@
-
-Base Project for role management in Node
+Base Project for Endesha application
